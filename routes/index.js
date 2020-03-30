@@ -24,7 +24,7 @@ module.exports = (server) => {
         console.error(err);
         return next(new errors.InternalError(err.message));
       }
-      res.send(201);
+      res.send(201, todo);
       next();
     })
   })
@@ -93,7 +93,7 @@ module.exports = (server) => {
 
   /* DELETE */
   server.del('/todos/:todo_id', (req, res, next) => {
-    Todo.remove({ _id: req.params.todo_id }, err => {
+    Todo.deleteOne({ _id: req.params.todo_id }, err => {
       if (err) {
         console.error(err)
         return next(
