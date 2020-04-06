@@ -2,15 +2,19 @@
   "name": "mysql-restify",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node main.js",
+    "dev": "nodemon main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
     "restify": "^8.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }

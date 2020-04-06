@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 module.exports = {
   name: "mysql-restify",
@@ -11,7 +11,8 @@ module.exports = {
       host: "localhost",
       user: "root",
       password: "nopassword",
-      database: "test"
+      database: "test",
+      port: "3306"
     })
   }
 }
