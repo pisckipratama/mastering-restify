@@ -54,17 +54,15 @@
 
     <div id="myDIV" class="card" style="display: none;">
       <div class="card-body">
+        <a href="#" onclick="myFunction()">Kembali ke halama utama</a>
         <h5 class="text-center">Logic Pengolahan Angka</h5> <br>
         <form>
           <div class="form-row align-items-center">
-            <div class="col-10">
+            <div class="col-11">
               <input type="number" id="theNum" class="form-control mb-2" placeholder="Masukkan Angka">
             </div>
             <div class="col-auto">
               <button onclick="olahAngka()" class="btn btn-primary mb-2">Run</button>
-            </div>
-            <div class="col-auto">
-              <button onclick="myFunction()" class="btn btn-secondary mb-2">Kembali</button>
             </div>
           </div>
         </form>
@@ -146,17 +144,17 @@
             </tr>
           </thead>
           <tbody>
-            <% data.forEach((item, index) => { %>
+            <% let hasil = JSON.parse(data) %>
+            <% hasil.forEach(item => {  %>
             <tr>
-              <th scope="row">1</th>
-              <td><%= index + 1 %></td>
+              <th scope="row"><%= item.id %></th>
               <td><%= item.nama %></td>
               <td><%= item.alamat %></td>
               <td><%= item.notelp %></td>
               <td><%= item.sekolah %></td>
               <td>
                 <a href="#" class="btn btn-sm btn-info">Edit</a>
-                <a href="#" class="btn btn-sm btn-delete">Delete</a>
+                <a href="/delete/<%= item.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
               </td>
             </tr>
             <% }) %>
