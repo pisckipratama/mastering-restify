@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <title><%= title %>!</title>
+</head>
+
+<body>
+  <br>
+  <div class="container">
+    <div>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link btn btn-success btn-sm" href="#">Logout</a>
+        </li>
+      </ul>
+    </div>
+    <br>
+    <div class="card">
+      <div class="card-header">
+        <h1 class="text-center">Welcome, <%= user.username %></h1>
+      </div>
+      <div id="main-card" class="card-body" style="display: block;">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body text-center">
+                <h5 class="card-title">Logic</h5>
+                <p class="card-text">Cek ribuan, ratusan, jutaan, dsb</p>
+                <button onclick="myFunction()" class="btn btn-primary">Mulai</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body text-center">
+                <h5 class="card-title">Database</h5>
+                <p class="card-text">Masukan data diri anda.</p>
+                <button onclick="myFunction2()" class="btn btn-primary">Mulai</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="myDIV" class="card" style="display: none;">
+      <div class="card-body">
+        <h5 class="text-center">Logic Pengolahan Angka</h5> <br>
+        <form>
+          <div class="form-row align-items-center">
+            <div class="col-10">
+              <input type="number" id="theNum" class="form-control mb-2" placeholder="Masukkan Angka">
+            </div>
+            <div class="col-auto">
+              <button onclick="olahAngka()" class="btn btn-primary mb-2">Run</button>
+            </div>
+            <div class="col-auto">
+              <button onclick="myFunction()" class="btn btn-secondary mb-2">Kembali</button>
+            </div>
+          </div>
+        </form>
+        <div class="card">
+          <div id="hasilMain" class="card-body">
+            <strong>
+              <p>Hasil <span id="detil"></span>:</p>
+            </strong>
+            <div id="hasil">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="myDIV2" class="card" style="display: none;">
+      <div class="card-body">
+        <a href="#" onclick="myFunction2()">Kembali ke halama utama</a>
+        <h4 class="text-center">Database Murid</h4>
+
+        <div id="shwbutton" style="display: block;">
+          <button onclick="showForm()" class="btn btn-success">Add</button>
+        </div>
+
+        <br>
+
+        <form id="tambahSiswa" method="POST" action="" style="display: none;">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Nama</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="nama" placeholder="John Doe">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Alamat</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" name="alamat" placeholder="Jl. Melati IV No. 1" rows="3"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">No Telepon</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" name="telp" placeholder="081123456789">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="inputBoolean" class="col-sm-2 col-form-label">Asal Sekolah</label>
+            <div class="col-sm-10">
+              <select class="custom-select" name="sekolah">
+                <option value="" disabled selected>Pilih Salah Satu</option>
+                <option value="Quality Assurance">Quality Assurance</option>
+                <option value="Manager">Manager</option>
+                <option value="Software Developer">Software Developer</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Post</button>
+              <a onclick="showForm()" class="btn btn-warning">Cancel</a>
+            </div>
+          </div>
+        </form>
+
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Nama</th>
+              <th scope="col">Alamat</th>
+              <th scope="col">No. Telepon</th>
+              <th scope="col">Asal Sekolah</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.forEach((item, index) => { %>
+            <tr>
+              <th scope="row">1</th>
+              <td><%= index + 1 %></td>
+              <td><%= item.nama %></td>
+              <td><%= item.alamat %></td>
+              <td><%= item.notelp %></td>
+              <td><%= item.sekolah %></td>
+              <td>
+                <a href="#" class="btn btn-sm btn-info">Edit</a>
+                <a href="#" class="btn btn-sm btn-delete">Delete</a>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+  <script>
+    function showForm(params) {
+      var element = document.getElementById("shwbutton");
+      if (element.style.display == "block") {
+        element.style.display = "none"
+      } else {
+        element.style.display = "block"
+      }
+
+      var card = document.getElementById("tambahSiswa");
+      if (card.style.display === "none") {
+        card.style.display = "block"
+      } else {
+        card.style.display = "none"
+      }
+    }
+
+    function myFunction() {
+      var element = document.getElementById("myDIV");
+      if (element.style.display == "none") {
+        element.style.display = "block"
+      } else {
+        element.style.display = "none"
+      }
+
+      var card = document.getElementById("main-card");
+      if (card.style.display === "block") {
+        card.style.display = "none"
+      } else {
+        card.style.display = "block"
+      }
+    }
+
+    function myFunction2() {
+      var element = document.getElementById("myDIV2");
+      if (element.style.display == "none") {
+        element.style.display = "block"
+      } else {
+        element.style.display = "none"
+      }
+
+      var card = document.getElementById("main-card");
+      if (card.style.display === "block") {
+        card.style.display = "none"
+      } else {
+        card.style.display = "block"
+      }
+    }
+
+    function olahAngka() {
+      var span = document.getElementById("fieldResult");
+      var myhasil = document.getElementById("hasil")
+      if (document.getElementById("hasil").contains(span)) {
+        myhasil.remove()
+      }
+
+      var angka = document.getElementById('theNum').value;
+      var olah = angka.split('').reverse();
+      var zero = '';
+      var hasil = []
+
+      for (var i = 0; i < olah.length; i++) {
+        if (i === 0 && olah[i] != 0) {
+          hasil.push(olah[i]);
+        } else if (olah[i] != 0) {
+          hasil.push(olah[i] + zero)
+        }
+        zero += '0';
+      }
+
+      // create span for delete fields
+      var divElement = document.createElement("DIV");
+      divElement.id = "hasil";
+      document.getElementById("hasilMain").appendChild(divElement);
+
+      var spanElement = document.createElement("SPAN");
+      spanElement.id = "fieldResult";
+      document.getElementById("hasil").appendChild(spanElement);
+
+      // add to hasil fields
+      var final = hasil.reverse();
+      for (var j = 0; j < final.length; j++) {
+        var addElement = document.createElement("P");
+        addElement.innerHTML = final[j];
+        document.getElementById("hasil").appendChild(addElement)
+      }
+
+      document.getElementById("detil").innerHTML = `olahan dari angka ${angka} `;
+      document.getElementById("theNum").value = ''
+    }
+
+  </script>
+</body>
+
+</html>
