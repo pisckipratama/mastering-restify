@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models/index');
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
+/* GET landing main page. */
+router.get('/', (req, res, next) => {
   res.render('login', { loginMessage: req.flash('loginMessage') });
 });
 
+/* POST login and redirect to home page. */
 router.post('/login', (req, res) => {
   models.User.findOne({
     where: {
@@ -27,5 +28,12 @@ router.post('/login', (req, res) => {
     }
   }).catch(err => res.send(err));
 })
+
+/* GET logout progress */
+router.get('/logout', (req, res, next) => {
+  req.session.destroy(function (err) {
+    return res.redirect('/');
+  })
+});
 
 module.exports = router;

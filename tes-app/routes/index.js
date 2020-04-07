@@ -1,24 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../models/index');
+const helper = require('../helpers/utils')
 
-/* GET home page. */
-// router.get('/', (req, res) => {
-//   models.Siswa.findAll({
-//     include: [{
-//       model: models.Sekolah
-//     }]
-//   }).then(result => {
-//     console.log(JSON.stringify(result))
-//     res.render('index', {
-//       title: 'Tess',
-//       user: req.session.user,
-//       data: JSON.stringify(result)
-//     });
-//   }).catch(err => res.send(err))
-// });
-
-router.get('/', (req, res) => {
+/* GET data siswa and sekolah */
+router.get('/', helper.isLoggedIn, (req, res) => {
   models.Sekolah.findAll({})
     .then(result => {
       dataSekolah = result
@@ -38,7 +24,8 @@ router.get('/', (req, res) => {
     }).catch(err => res.send(err))
 })
 
-router.get('/edit/:id', (req, res) => {
+/* GET landing page for edit */
+router.get('/edit/:id', helper.isLoggedIn, (req, res) => {
   models.Sekolah.findAll({})
     .then(result => {
       dataSekolah = result
@@ -61,7 +48,8 @@ router.get('/edit/:id', (req, res) => {
     }).catch(err => res.send(err))
 })
 
-router.post('/add', (req, res) => {
+/* POST add data siswa */
+router.post('/add', helper.isLoggedIn, (req, res) => {
   models.Siswa.create({
     nama: req.body.nama,
     alamat: req.body.alamat,
@@ -73,7 +61,8 @@ router.post('/add', (req, res) => {
   }).catch(err => res.send(err))
 })
 
-router.post('/edit/:id', (req, res) => {
+/* POST edit data siswa */
+router.post('/edit/:id', helper.isLoggedIn, (req, res) => {
   models.Siswa.update({
     nama: req.body.nama,
     alamat: req.body.alamat,
@@ -87,7 +76,8 @@ router.post('/edit/:id', (req, res) => {
     .catch(err => res.send(err))
 })
 
-router.post('/add-school', (req, res) => {
+/* POST add data sekolah */
+router.post('/add-school', helper.isLoggedIn, (req, res) => {
   models.Sekolah.create({
     nama: req.body.inputsekolah
   }).then(() => {
@@ -96,7 +86,8 @@ router.post('/add-school', (req, res) => {
   }).catch(err => res.send(err))
 })
 
-router.get('/delete/:id', (req, res) => {
+/* DELETE delete data siswa */
+router.get('/delete/:id', helper.isLoggedIn, (req, res) => {
   models.Siswa.destroy({
     where: {
       id: req.params.id

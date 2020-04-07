@@ -21,11 +21,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'aplikasiaingkumahaaing',
   resave: true,
   saveUninitialized: true
 }))
+app.use(function (req, res, next) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  next();
+});
+
 
 app.use('/home', indexRouter);
 app.use('/', usersRouter);
