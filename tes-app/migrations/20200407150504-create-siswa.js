@@ -17,8 +17,8 @@ module.exports = {
       notelp: {
         type: Sequelize.STRING
       },
-      sekolah: {
-        type: Sequelize.STRING
+      SekolahId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

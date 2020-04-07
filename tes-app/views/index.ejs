@@ -90,7 +90,7 @@
 
         <br>
 
-        <form id="tambahSiswa" method="POST" action="" style="display: none;">
+        <form id="tambahSiswa" method="POST" action="/home/add" style="display: none;">
           <div class="form-group row">
             <label for="inputEmail3" class="col-sm-2 col-form-label">Nama</label>
             <div class="col-sm-10">
@@ -113,14 +113,17 @@
           </div>
 
           <div class="form-group row">
-            <label for="inputBoolean" class="col-sm-2 col-form-label">Asal Sekolah</label>
+            <label for="inputBoolean" class="col-sm-2 col-form-label mb-2">Asal Sekolah</label>
             <div class="col-sm-10">
               <select class="custom-select" name="sekolah">
                 <option value="" disabled selected>Pilih Salah Satu</option>
-                <option value="Quality Assurance">Quality Assurance</option>
-                <option value="Manager">Manager</option>
-                <option value="Software Developer">Software Developer</option>
+                <% let school = JSON.parse(sekolahan) %>
+                <% school.forEach(item => {  %>
+                <option value="<%= item.id %>"><%= item.nama %></option>
+                <% }) %>
               </select>
+              <small class="form-text text-muted">Sekolah tidak terdaftar? <a href="#"
+                  onclick="addSchool()">Tambah</a></small>
             </div>
           </div>
 
@@ -128,6 +131,18 @@
             <div class="col-sm-10">
               <button type="submit" class="btn btn-primary">Post</button>
               <a onclick="showForm()" class="btn btn-warning">Cancel</a>
+            </div>
+          </div>
+        </form>
+
+        <form action="/home/add-school" method="POST" id="tambahsekolah" style="display: none;">
+          <div class="form-row align-items-center">
+            <div class="col-10">
+              <input type="text" class="form-control mb-2" name="inputsekolah" placeholder="Nama Sekolah">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary mb-2">Send</button>
+              <a onclick="addSchool()" class="btn btn-warning mb-2">Cancel</a>
             </div>
           </div>
         </form>
@@ -145,16 +160,23 @@
           </thead>
           <tbody>
             <% let hasil = JSON.parse(data) %>
-            <% hasil.forEach(item => {  %>
+            <% hasil.forEach((item, index) => {  %>
             <tr>
-              <th scope="row"><%= item.id %></th>
-              <td><%= item.nama %></td>
+              <th scope="row"><%= index + 1 %></th>
+              <td>
+                <%  if (item.isedited) {  %>
+                  <input type="text" class="form-control" name="nama" value="<%= item.nama %>">
+                <% } else {  %>
+                  <%= item.nama %>
+                <% } %>
+              </td>
               <td><%= item.alamat %></td>
               <td><%= item.notelp %></td>
-              <td><%= item.sekolah %></td>
+              <td><%= item.Sekolah.nama %></td>
               <td>
-                <a href="#" class="btn btn-sm btn-info">Edit</a>
-                <a href="/delete/<%= item.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                <a href="/home/edit/<%= item.id %>" class="btn btn-sm btn-info">Edit</a>
+                <a href="/home/delete/<%= item.id %>" class="btn btn-sm btn-danger"
+                  onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
               </td>
             </tr>
             <% }) %>
@@ -162,6 +184,7 @@
         </table>
       </div>
     </div>
+
   </div>
 
   <!-- Optional JavaScript -->
@@ -177,7 +200,23 @@
     crossorigin="anonymous"></script>
 
   <script>
-    function showForm(params) {
+    function addSchool() {
+      var formsiswa = document.getElementById("tambahSiswa");
+      if (formsiswa.style.display === "block") {
+        formsiswa.style.display = "none"
+      } else {
+        formsiswa.style.display = "block"
+      }
+
+      var formtambahsekolah = document.getElementById("tambahsekolah");
+      if (formtambahsekolah.style.display === "none") {
+        formtambahsekolah.style.display = "block"
+      } else {
+        formtambahsekolah.style.display = "none"
+      }
+    }
+
+    function showForm() {
       var element = document.getElementById("shwbutton");
       if (element.style.display == "block") {
         element.style.display = "none"

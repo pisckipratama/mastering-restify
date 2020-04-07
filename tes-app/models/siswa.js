@@ -4,10 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     nama: DataTypes.STRING,
     alamat: DataTypes.TEXT,
     notelp: DataTypes.STRING,
-    sekolah: DataTypes.STRING
+    SekolahId: DataTypes.INTEGER,
+    isedited: DataTypes.BOOLEAN
   }, {});
   Siswa.associate = function(models) {
     // associations can be defined here
+    Siswa.belongsTo(models.Sekolah)
   };
   return Siswa;
 };
