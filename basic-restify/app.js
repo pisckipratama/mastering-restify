@@ -13,7 +13,7 @@ server.get('/hello/:name', respond);
 server.head('/hello/:name', respond);
 
 server.get('/', function (req, res, next) {
-  res.send('home');
+  res.send({ message: "Home Page" });
   return next();
 })
 
@@ -23,11 +23,13 @@ server.post('/foo',
     return next();
   },
   function (req, res, next) {
-    res.send(req.someData);
+    res.send({ data: req.someData });
     return next();
   }
 )
 
 server.listen(8080, function () {
   console.log('%s listening at %s', server.name, server.url);
-})
+});
+
+module.exports = server;
