@@ -2,6 +2,7 @@ const restify = require('restify');
 const mongoose = require('mongoose');
 const config = require('./config');
 const rjwt = require('restify-jwt-community');
+require('dotenv/config');
 
 const server = restify.createServer();
 
